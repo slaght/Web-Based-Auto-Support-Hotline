@@ -82,7 +82,7 @@
 </style>
 <h1 class="center" id="headline">
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
-    Web Speech API</a> Speech Speed Feedback</h1>
+    Web Speech API</a> Automated Agent</h1>
 <div id="info">
   <p id="fail">It seems like I’m unable to help you, I will connect you to the next available agent, please wait.</p>
   <p id = "thanks">Thank you for your business!</p>
@@ -275,11 +275,11 @@ function respond() {
   case '':
 
     showInfo('info-start');
-    if (transcript.inludes("account")) {
+    if (transcript.inludes('account')) {
       state = 'account';
-    } else if (transcript.inludes("technical")) {
+    } else if (transcript.inludes('technical')) {
       state = 'technical';
-    } else if (transcript.inludes("product")) {
+    } else if (transcript.inludes('product')) {
       state = 'product';
     } else {
       showInfo('error');
