@@ -84,35 +84,20 @@
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
     Web Speech API</a> Speech Speed Feedback</h1>
 <div id="info">
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    
-  </p>
-
-  <p id="info_start">Click on the microphone icon and begin speaking.  We will tell you if your spaking speed is too fast or too slow.</p>
+  <p class="fail">It seems like I’m unable to help you, I will connect you to the next available agent, please wait.</p>
+  <p class = "thanks">Thank you for your business!</p>
+  <p class = "free">Spotify offers free subscriptions! Go ahead and sign up!</p>
+  <p class = "card">Enter your credit card number to make this payment (but not your actual credit card info please :) )</p>
+  <p class = "code">Enter your 3 digit credit card code to make this payment (but not your actual credit card code please :) )</p>
+  <p class = "products">We offer: Sporify Student, Spotify Premium, Spotify Family, and Free Spotify.  Would you like to </p>
+  <p class = "fixed">I'm glad I could help.  Have a nice day!</p>
+  <p class = "connect">Please hold while we connect you to the next available technical agent</p>
+  <p  class = "error">I couldn't hear what you were saying.  Please try again.</p>
+  <p class = "onoff">Have you tried turning it on and off again?</p>
+  <p class="check">Your balance is 1 BILLION DOLLARS.  Would you like to pay your balance?</p>
+  <p class="technical">Please briefely describe your problem:</p>   
+  <p id = "account">Welcome to accounts! Would you like to check your balance or pay your balance?</p>
+  <p id="info_start">Welcome to Spotify customer service!  Would you like to: view account info, contact technical support, or view product info?</p>
   <p id="info_speak_now">Speak now.</p>
   <p id="info_no_speech">No speech was detected. You may need to adjust your
     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
@@ -128,8 +113,6 @@
   <p id="info_upgrade">Web Speech API is not supported by this browser.
      Upgrade to <a href="//www.google.com/chrome">Chrome</a>
      version 25 or later.</p>
-   <p id = "too_fast">You're speaking pretty fast! Try slowing down some!</p>
-   <p id = "too_slow">You're speaking pretty slowly! Try speeding up some!</p>
 </div>
 <div class="right">
   <button id="start_button" onclick="startButton(event)">
@@ -148,6 +131,7 @@ var final_transcript = '';
 var recognizing = false;
 var ignore_onend;
 var start_timestamp;
+var err_count=0;
 
 var state = '';
 
@@ -257,6 +241,10 @@ function startButton(event) {
 }
 
 function showInfo(s) {
+  if (err_count>3) {
+    s='fail';
+    state='end';
+  }
   if (s) {
     for (var child = info.firstChild; child; child = child.nextSibling) {
       if (child.style) {
@@ -264,6 +252,9 @@ function showInfo(s) {
       }
     }
     info.style.visibility = 'visible';
+    if (s=='error') {
+      err_count++;
+    }
   } else {
     info.style.visibility = 'hidden';
   }
@@ -307,6 +298,8 @@ function respond(input) {
     }
     if (final_transcript.toLowerCase().inludes("check")) {
       state = 'check';
+    } else if (final_transcript.toLowerCase().inludes("pay")) {
+      state = 'card';
     } else {
       showInfo('error');
     }
@@ -321,27 +314,65 @@ function respond(input) {
       //loop until we have input
     }
     if (final_transcript.toLowerCase().inludes("yes")) {
-      state = 'pay';
+      state = 'card';
+    } else if (final_transcript.toLowerCase().inludes("no")) {
+      state = '';
     } else {
       showInfo('error');
     }
     final_transcript='';
     break;
 
-  //case 'pay':
+  case 'card':
 
-    // showInfo('pay');
-    // recognizing=true
-    // while (recognizing==true){
-    //   //loop until we have input
-    // }
-    // if (final_transcript.toLowerCase().inludes("check")) {
-    //   state = 'check';
-    // } else {
-    //   showInfo('error');
-    // }
-    // final_transcript='';
-    // break;
+    showInfo('card');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    final_transcript.toLowerCase().replace("one", '1');
+    final_transcript.toLowerCase().replace("two", '2');
+    final_transcript.toLowerCase().replace("three", '3');
+    final_transcript.toLowerCase().replace("four", '4');
+    final_transcript.toLowerCase().replace("five", '5');
+    final_transcript.toLowerCase().replace("six", '6');
+    final_transcript.toLowerCase().replace("seven", '7');
+    final_transcript.toLowerCase().replace("eight", '8');
+    final_transcript.toLowerCase().replace("nine", '9');
+    final_transcript.toLowerCase().replace("zero", '0');
+    if (final_transcript.toLowerCase().test(“\b4[0-9]{12}(?:[0-9]{3})?\b”)) {
+      showInfo('thanks');
+      state = 'end';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  case 'code':
+
+    showInfo('code');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    final_transcript.toLowerCase().replace("one", '1');
+    final_transcript.toLowerCase().replace("two", '2');
+    final_transcript.toLowerCase().replace("three", '3');
+    final_transcript.toLowerCase().replace("four", '4');
+    final_transcript.toLowerCase().replace("five", '5');
+    final_transcript.toLowerCase().replace("six", '6');
+    final_transcript.toLowerCase().replace("seven", '7');
+    final_transcript.toLowerCase().replace("eight", '8');
+    final_transcript.toLowerCase().replace("nine", '9');
+    final_transcript.toLowerCase().replace("zero", '0');
+    if (final_transcript.toLowerCase().test(“\b4[0-9]{3}(?:[0-9]{3})?\b”)) {
+      state = 'code';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
 
   case 'technical':
 
@@ -365,11 +396,10 @@ function respond(input) {
     while (recognizing==true){
       //loop until we have input
     }
-    if (final_transcript.toLowerCase().inludes("yes")) {
+    if (final_transcript.toLowerCase().inludes("no")) {
       showInfo('connect');
       state = 'end';
     } else if (final_transcript.toLowerCase().inludes("yes")) {
-      showInfo('try');
       state = 'work?';
     } else {
       showInfo('error');
@@ -377,8 +407,42 @@ function respond(input) {
     final_transcript='';
     break;
 
+  case 'work?':
 
+    showInfo('try');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("no")) {
+      showInfo('connect');
+      state = 'end';
+    } else if (final_transcript.toLowerCase().inludes("yes")) {
+      showInfo('fixed');
+      state = 'end';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
 
+  case 'product':
+
+    showInfo('products');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("premium")||final_transcript.toLowerCase().inludes("student")||final_transcript.toLowerCase().inludes("family")) {
+      state = 'card';
+    } else if (final_transcript.toLowerCase().inludes("free")) {
+      showInfo('free');
+      state = 'end';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
 
   case 'end':
     break;
