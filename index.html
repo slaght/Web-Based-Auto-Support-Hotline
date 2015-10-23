@@ -231,6 +231,7 @@ function startButton(event) {
   }
   final_transcript = '';
   recognition.lang = 'en-US';
+  recognition.stop();
   recognition.start();
   ignore_onend = false;
   final_span.innerHTML = '';
