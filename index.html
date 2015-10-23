@@ -147,7 +147,6 @@ if (!('webkitSpeechRecognition' in window)) {
     recognizing = true;
     //showInfo('info_speak_now');
     start_img.src = 'mic-animate.gif';
-    respond();
   };
 
   recognition.onerror = function(event) {
@@ -227,7 +226,8 @@ function capitalize(s) {
 function startButton(event) {
   if (recognizing) {
     recognition.stop();
-    return;
+    respond();
+    
   }
   final_transcript = '';
   recognition.lang = 'en-US';
@@ -274,10 +274,6 @@ function respond() {
   case '':
 
     showInfo('info-start');
-    recognizing=true;
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("account")) {
       state = 'account';
     } else if (final_transcript.toLowerCase().inludes("technical")) {
@@ -293,10 +289,6 @@ function respond() {
   case 'account': 
 
     showInfo('account');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("check")) {
       state = 'check';
     } else if (final_transcript.toLowerCase().inludes("pay")) {
@@ -310,10 +302,6 @@ function respond() {
   case 'check':
 
     showInfo('check');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("yes")) {
       state = 'card';
     } else if (final_transcript.toLowerCase().inludes("no")) {
@@ -327,10 +315,6 @@ function respond() {
   case 'card':
 
     showInfo('card');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     final_transcript.toLowerCase().replace("one", '1');
     final_transcript.toLowerCase().replace("two", '2');
     final_transcript.toLowerCase().replace("three", '3');
@@ -353,10 +337,6 @@ function respond() {
   case 'code':
 
     showInfo('code');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     final_transcript.toLowerCase().replace("one", '1');
     final_transcript.toLowerCase().replace("two", '2');
     final_transcript.toLowerCase().replace("three", '3');
@@ -378,10 +358,6 @@ function respond() {
   case 'technical':
 
     showInfo('technical');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.length()>0) { //'listen' to any input
       state = 'onoff';
     } else {
@@ -393,10 +369,6 @@ function respond() {
   case 'onoff':
 
     showInfo('onoff');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("no")) {
       showInfo('connect');
       state = 'end';
@@ -411,10 +383,6 @@ function respond() {
   case 'work?':
 
     showInfo('try');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("no")) {
       showInfo('connect');
       state = 'end';
@@ -430,10 +398,6 @@ function respond() {
   case 'product':
 
     showInfo('products');
-    recognizing=true
-    while (recognizing==true){
-      //loop until we have input
-    }
     if (final_transcript.toLowerCase().inludes("premium")||final_transcript.toLowerCase().inludes("student")||final_transcript.toLowerCase().inludes("family")) {
       state = 'card';
     } else if (final_transcript.toLowerCase().inludes("free")) {
