@@ -84,6 +84,34 @@
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
     Web Speech API</a> Speech Speed Feedback</h1>
 <div id="info">
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+  <p>
+    
+  </p>
+
   <p id="info_start">Click on the microphone icon and begin speaking.  We will tell you if your spaking speed is too fast or too slow.</p>
   <p id="info_speak_now">Speak now.</p>
   <p id="info_no_speech">No speech was detected. You may need to adjust your
@@ -121,23 +149,7 @@ var recognizing = false;
 var ignore_onend;
 var start_timestamp;
 
-var transcript_length = new Array();
-var interfal = setInterval(logWords, 5000);
-function logWords() {
-  if (recognizing) {
-    transcript_length.push(final_transcript.split(" ").length);
-    if (transcript_length.length>2) {
-      if (Math.abs(transcript_length[transcript_length.length-1]-transcript_length[transcript_length.length-2])*12>188){
-          showInfo('too_fast');
-      } else if (Math.abs(transcript_length[transcript_length.length-1]-transcript_length[transcript_length.length-2])*12<133){
-          showInfo('too_slow');
-      } else {
-        showInfo('');
-      }
-    }
-  }
-}
-
+var state = '';
 
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
@@ -264,4 +276,117 @@ function showButtons(style) {
   }
   current_style = style;
 }
+
+function respond(input) {
+  switch(state){
+  case '':
+
+    showInfo('info-start');
+    recognizing=true;
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("account")) {
+      state = 'account';
+    } else if (final_transcript.toLowerCase().inludes("technical")) {
+      state = 'technical';
+    } else if (final_transcript.toLowerCase().inludes("product")) {
+      state = 'product';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  case 'account': 
+
+    showInfo('account');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("check")) {
+      state = 'check';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  case 'check':
+
+    showInfo('check');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("yes")) {
+      state = 'pay';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  //case 'pay':
+
+    // showInfo('pay');
+    // recognizing=true
+    // while (recognizing==true){
+    //   //loop until we have input
+    // }
+    // if (final_transcript.toLowerCase().inludes("check")) {
+    //   state = 'check';
+    // } else {
+    //   showInfo('error');
+    // }
+    // final_transcript='';
+    // break;
+
+  case 'technical':
+
+    showInfo('technical');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.length()>0) { //'listen' to any input
+      state = 'onoff';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  case 'onoff':
+
+    showInfo('onoff');
+    recognizing=true
+    while (recognizing==true){
+      //loop until we have input
+    }
+    if (final_transcript.toLowerCase().inludes("yes")) {
+      showInfo('connect');
+      state = 'end';
+    } else if (final_transcript.toLowerCase().inludes("yes")) {
+      showInfo('try');
+      state = 'work?';
+    } else {
+      showInfo('error');
+    }
+    final_transcript='';
+    break;
+
+  case ''
+
+
+
+
+
+
+  case 'end':
+    break;
+  }
+}
+
 </script>
