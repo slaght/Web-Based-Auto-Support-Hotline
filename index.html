@@ -238,6 +238,7 @@ function startButton(event) {
   showInfo('info_allow');
   showButtons('none');
   start_timestamp = event.timeStamp;
+  respond();
 }
 
 function showInfo(s) {
@@ -268,7 +269,7 @@ function showButtons(style) {
   current_style = style;
 }
 
-function respond(input) {
+function respond() {
   switch(state){
   case '':
 
