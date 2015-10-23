@@ -340,7 +340,7 @@ function respond(input) {
     final_transcript.toLowerCase().replace("eight", '8');
     final_transcript.toLowerCase().replace("nine", '9');
     final_transcript.toLowerCase().replace("zero", '0');
-    if (final_transcript.toLowerCase().test(“\b4[0-9]{12}(?:[0-9]{3})?\b”)) {
+    if (final_transcript.toLowerCase().test(/\b[0-9]{12}/)) {
       showInfo('thanks');
       state = 'end';
     } else {
@@ -366,7 +366,7 @@ function respond(input) {
     final_transcript.toLowerCase().replace("eight", '8');
     final_transcript.toLowerCase().replace("nine", '9');
     final_transcript.toLowerCase().replace("zero", '0');
-    if (final_transcript.toLowerCase().test(“\b4[0-9]{3}(?:[0-9]{3})?\b”)) {
+    if (final_transcript.toLowerCase().test(/\b[0-9]{3}/)) {
       state = 'code';
     } else {
       showInfo('error');
