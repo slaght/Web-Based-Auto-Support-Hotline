@@ -275,11 +275,11 @@ function respond() {
   case '':
 
     showInfo('info-start');
-    if (transcript.inludes('account')) {
+    if (transcript.indexOf('account')>=0) {
       state = 'account';
-    } else if (transcript.inludes('technical')) {
+    } else if (transcript.indexOf('technical')>=0) {
       state = 'technical';
-    } else if (transcript.inludes('product')) {
+    } else if (transcript.indexOf('product')>=0) {
       state = 'product';
     } else {
       showInfo('error');
