@@ -270,15 +270,16 @@ function showButtons(style) {
 }
 
 function respond() {
+  var transcript = final_transcript.toLowerCase();
   switch(state){
   case '':
 
     showInfo('info-start');
-    if (final_transcript.toLowerCase().inludes("account")) {
+    if (transcript.inludes("account")) {
       state = 'account';
-    } else if (final_transcript.toLowerCase().inludes("technical")) {
+    } else if (transcript.inludes("technical")) {
       state = 'technical';
-    } else if (final_transcript.toLowerCase().inludes("product")) {
+    } else if (transcript.inludes("product")) {
       state = 'product';
     } else {
       showInfo('error');
@@ -289,9 +290,9 @@ function respond() {
   case 'account': 
 
     showInfo('account');
-    if (final_transcript.toLowerCase().inludes("check")) {
+    if (transcript.inludes("check")) {
       state = 'check';
-    } else if (final_transcript.toLowerCase().inludes("pay")) {
+    } else if (transcript.inludes("pay")) {
       state = 'card';
     } else {
       showInfo('error');
@@ -302,9 +303,9 @@ function respond() {
   case 'check':
 
     showInfo('check');
-    if (final_transcript.toLowerCase().inludes("yes")) {
+    if (transcript.inludes("yes")) {
       state = 'card';
-    } else if (final_transcript.toLowerCase().inludes("no")) {
+    } else if (transcript.inludes("no")) {
       state = '';
     } else {
       showInfo('error');
@@ -315,17 +316,17 @@ function respond() {
   case 'card':
 
     showInfo('card');
-    final_transcript.toLowerCase().replace("one", '1');
-    final_transcript.toLowerCase().replace("two", '2');
-    final_transcript.toLowerCase().replace("three", '3');
-    final_transcript.toLowerCase().replace("four", '4');
-    final_transcript.toLowerCase().replace("five", '5');
-    final_transcript.toLowerCase().replace("six", '6');
-    final_transcript.toLowerCase().replace("seven", '7');
-    final_transcript.toLowerCase().replace("eight", '8');
-    final_transcript.toLowerCase().replace("nine", '9');
-    final_transcript.toLowerCase().replace("zero", '0');
-    if (final_transcript.toLowerCase().test(/\b[0-9]{12}/)) {
+    transcript.replace("one", '1');
+    transcript.replace("two", '2');
+    transcript.replace("three", '3');
+    transcript.replace("four", '4');
+    transcript.replace("five", '5');
+    transcript.replace("six", '6');
+    transcript.replace("seven", '7');
+    transcript.replace("eight", '8');
+    transcript.replace("nine", '9');
+    transcript.replace("zero", '0');
+    if (transcript.test(/\b[0-9]{12}/)) {
       showInfo('thanks');
       state = 'end';
     } else {
@@ -337,17 +338,17 @@ function respond() {
   case 'code':
 
     showInfo('code');
-    final_transcript.toLowerCase().replace("one", '1');
-    final_transcript.toLowerCase().replace("two", '2');
-    final_transcript.toLowerCase().replace("three", '3');
-    final_transcript.toLowerCase().replace("four", '4');
-    final_transcript.toLowerCase().replace("five", '5');
-    final_transcript.toLowerCase().replace("six", '6');
-    final_transcript.toLowerCase().replace("seven", '7');
-    final_transcript.toLowerCase().replace("eight", '8');
-    final_transcript.toLowerCase().replace("nine", '9');
-    final_transcript.toLowerCase().replace("zero", '0');
-    if (final_transcript.toLowerCase().test(/\b[0-9]{3}/)) {
+    transcript.replace("one", '1');
+    transcript.replace("two", '2');
+    transcript.replace("three", '3');
+    transcript.replace("four", '4');
+    transcript.replace("five", '5');
+    transcript.replace("six", '6');
+    transcript.replace("seven", '7');
+    transcript.replace("eight", '8');
+    transcript.replace("nine", '9');
+    transcript.replace("zero", '0');
+    if (transcript.test(/\b[0-9]{3}/)) {
       state = 'code';
     } else {
       showInfo('error');
@@ -369,10 +370,10 @@ function respond() {
   case 'onoff':
 
     showInfo('onoff');
-    if (final_transcript.toLowerCase().inludes("no")) {
+    if (transcript.inludes("no")) {
       showInfo('connect');
       state = 'end';
-    } else if (final_transcript.toLowerCase().inludes("yes")) {
+    } else if (transcript.inludes("yes")) {
       state = 'work?';
     } else {
       showInfo('error');
@@ -383,10 +384,10 @@ function respond() {
   case 'work?':
 
     showInfo('try');
-    if (final_transcript.toLowerCase().inludes("no")) {
+    if (transcript.inludes("no")) {
       showInfo('connect');
       state = 'end';
-    } else if (final_transcript.toLowerCase().inludes("yes")) {
+    } else if (transcript.inludes("yes")) {
       showInfo('fixed');
       state = 'end';
     } else {
@@ -398,9 +399,9 @@ function respond() {
   case 'product':
 
     showInfo('products');
-    if (final_transcript.toLowerCase().inludes("premium")||final_transcript.toLowerCase().inludes("student")||final_transcript.toLowerCase().inludes("family")) {
+    if (transcript.inludes("premium")||transcript.inludes("student")||transcript.inludes("family")) {
       state = 'card';
-    } else if (final_transcript.toLowerCase().inludes("free")) {
+    } else if (transcript.inludes("free")) {
       showInfo('free');
       state = 'end';
     } else {
