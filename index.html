@@ -204,6 +204,7 @@ if (!('webkitSpeechRecognition' in window)) {
     if (final_transcript || interim_transcript) {
       showButtons('inline-block');
     }
+    respond();
   };
 }
 
@@ -226,12 +227,10 @@ function capitalize(s) {
 function startButton(event) {
   if (recognizing) {
     recognition.stop();
-    respond();
-    
+    return;
   }
   final_transcript = '';
   recognition.lang = 'en-US';
-  recognition.stop();
   recognition.start();
   ignore_onend = false;
   final_span.innerHTML = '';
