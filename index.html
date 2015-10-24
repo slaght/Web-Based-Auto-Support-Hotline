@@ -242,9 +242,13 @@ function startButton(event) {
 }
 
 function showInfo(s) {
-  if (err_count>20) {
-    s='fail';
-    state='end';
+  // if (err_count<20) {
+  //   s='fail';
+  //   state='end';
+  // }
+  if (s=='error') {
+    //err_count++;
+    return;
   }
   if (s) {
     for (var child = info.firstChild; child; child = child.nextSibling) {
@@ -253,9 +257,6 @@ function showInfo(s) {
       }
     }
     info.style.visibility = 'visible';
-    if (s=='error') {
-      err_count++;
-    }
   } else {
     info.style.visibility = 'hidden';
   }
