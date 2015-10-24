@@ -176,11 +176,6 @@ if (!('webkitSpeechRecognition' in window)) {
       return;
     }
     start_img.src = 'mic.gif';
-    if (!final_transcript) {
-      showInfo('info_start');
-      return;
-    }
-    showInfo('');
     if (window.getSelection) {
       window.getSelection().removeAllRanges();
       var range = document.createRange();
@@ -363,7 +358,7 @@ function respond() {
 
   case 'technical':
 
-    if (final_transcript.length()>0) { //'listen' to any input
+    if (final_transcript) { //'listen' to any input
       showInfo('onoff');
       state = 'onoff';
     } else {
