@@ -370,10 +370,10 @@ function respond() {
 
   case 'onoff':
 
-    if (transcript.indexOf("no")>=0) {
+    if (transcript.indexOf("yes")>=0) {
       showInfo('connect');
       state = 'end';
-    } else if (transcript.indexOf("yes")>=0) {
+    } else if (transcript.indexOf("no")>=0) {
       showInfo('try');
       state = 'work?';
     } else {
