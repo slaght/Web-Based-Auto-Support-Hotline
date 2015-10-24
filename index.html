@@ -348,7 +348,7 @@ function respond() {
     transcript.replace("eight", '8');
     transcript.replace("nine", '9');
     transcript.replace("zero", '0');
-    if (transcript..matches("[0-9]{3}")) {
+    if (transcript.matches("[0-9]{3}")) {
       showInfo('thanks');
       state = 'end';
     } else {
