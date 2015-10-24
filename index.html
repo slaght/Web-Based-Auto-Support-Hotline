@@ -290,9 +290,9 @@ function respond() {
   case 'account': 
 
     showInfo('account');
-    if (transcript.inludes("check")) {
+    if (transcript.indexOf("check")>=0) {
       state = 'check';
-    } else if (transcript.inludes("pay")) {
+    } else if (transcript.indexOf("pay")>=0) {
       state = 'card';
     } else {
       showInfo('error');
@@ -303,9 +303,9 @@ function respond() {
   case 'check':
 
     showInfo('check');
-    if (transcript.inludes("yes")) {
+    if (transcript.indexOf("yes")>=0) {
       state = 'card';
-    } else if (transcript.inludes("no")) {
+    } else if (transcript.indexOf("no")>=0) {
       state = '';
     } else {
       showInfo('error');
@@ -370,10 +370,10 @@ function respond() {
   case 'onoff':
 
     showInfo('onoff');
-    if (transcript.inludes("no")) {
+    if (transcript.indexOf("no")>=0) {
       showInfo('connect');
       state = 'end';
-    } else if (transcript.inludes("yes")) {
+    } else if (transcript.indexOf("yes")>=0) {
       state = 'work?';
     } else {
       showInfo('error');
@@ -384,10 +384,10 @@ function respond() {
   case 'work?':
 
     showInfo('try');
-    if (transcript.inludes("no")) {
+    if (transcript.indexOf("no")>=0) {
       showInfo('connect');
       state = 'end';
-    } else if (transcript.inludes("yes")) {
+    } else if (transcript.indexOf("yes")>=0) {
       showInfo('fixed');
       state = 'end';
     } else {
@@ -399,9 +399,9 @@ function respond() {
   case 'product':
 
     showInfo('products');
-    if (transcript.inludes("premium")||transcript.inludes("student")||transcript.inludes("family")) {
+    if (transcript.indexOf("premium")>=0||transcript.indexOf("student")>=0||transcript.indexOf("family")>=0) {
       state = 'card';
-    } else if (transcript.inludes("free")) {
+    } else if (transcript.indexOf("free")>=0) {
       showInfo('free');
       state = 'end';
     } else {
